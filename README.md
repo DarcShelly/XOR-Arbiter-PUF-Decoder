@@ -92,17 +92,7 @@ $$
 
 Thus, the decision boundary equation becomes:
 
-$$
-\sum_{i=1}^{32} \big(u_i^2 - 2u_i v_i + v_i^2\big) x_i^2 + \big(p^2 - 2pq + q^2\big)
-$$
-
-$$
-+ \sum_{i=1}^{32} \sum_{j=i+1}^{32} \big(4u_i u_j + 4v_i v_j - 2u_i v_j - 2v_i u_j\big) x_i x_j
-$$
-
-$$
-+ 2(p - q) \sum_{i=1}^{32} (u_i - v_i) x_i - t^2 = 0
-$$
+![Formula1](formula.png)
 
 $$
 \Rightarrow \sum_{i=1}^{32} (u_i - v_i)^2 x_i^2 + \sum_{i=1}^{32} \sum_{j=i+1}^{32} (u_i + v_i)(2u_j - v_j)x_i x_j + 2(p - q) \sum_{i=1}^{32} (u_i - v_i)x_i + \big[(p - q)^2 - t^2\big] = 0
