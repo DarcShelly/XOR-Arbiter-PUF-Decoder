@@ -136,7 +136,7 @@ Thus, we can represent the above decision boundary with the help of a linear mod
 Thus, the linear classifier model is given by the equation-
 
 $$
-(1 + \text{sign}(\mathbf{W}^T \phi(\mathbf{c}) + b)/2 = r)
+(1 + \text{sign}(\mathbf{W}^T \phi(\mathbf{c}) + b))/2 = r
 $$
 
 , where $\mathbf{W} \in \mathbb{R}^{528}$ is the weight matrix, $b \in \mathbb{R}$ is the bias term, $\mathbf{c} \in \{0, 1\}^{32}$ contains the challenge and $r \in \{0, 1\}$ is the response.
