@@ -134,7 +134,7 @@ Here, the first term has $(31 \cdot 32) / 2 = 496$ dimensions and the second ter
 
 Thus, we can represent the above decision boundary with the help of a linear model in 528 dimensions.
 
-### Conclusion:-
+## Conclusion:-
 Thus, the linear classifier model is given by the equation-
 
 $$
@@ -149,7 +149,7 @@ $$
 \phi(\mathbf{c}) = \{c_i c_j \,|\, c_i, c_j \in \mathbf{c} \text{ and } i < j\} \cup \mathbf{c}
 $$
 
-# Linear Model Analysis
+# Part 2. Linear Model Analysis
 This part investigates the outcomes of utilizing the sklearn.svm.LinearSV and sklearn.linear_model.LogisticRegression methods for learning the behaviour of CAR-PUFs given some data of challenge-response pairs. Impacts of various hyperparameters, including the loss function, C value, tolerance, and penalty type, on accuracy and training time were explored. Results are presented through tables and charts, representing the effects of these hyperparameters on model performance across both SVM-LinearSVC and Logistic Regression methods.
 
 All the tests were done on a private CPU with the following specifications:  
@@ -157,3 +157,60 @@ All the tests were done on a private CPU with the following specifications:
 12th Gen Intel(R) Core(TM) i5-1235U 1.30 GHz  
 **RAM**:  
 8.00 GB  
+
+## 1. Results obtained from Linear SVC
+In this section, we performed training on our dataset utilizing the *sklearn.svm.LinearSVC()* method. Optimal parameters for least accuracy loss and training time can be easily inferred from the following data.
+
+### 1.1 Performance
+Modelling the data using **SVM-LinearSVC**, resulted in prediction accuracy of 99.3% on the "test" dataset and an average training time of about 2.53 seconds on the "train" dataset.
+
+### 1.2  Hyperparameter Tuning
+99.3% accuracy was achieved for the default hyperparameters. However, improvement in accuracy was observed for some non-default values. A clear trend can be observed between the performance and the values of hyperparameters of the models. The plots below provides the details of these:-
+
++ **Changing the *loss* hyperparameter**
+
+  *sklearn.SVC* provides two types of losses- ”hinge” and ”squared_hinge”(default value). The hinge loss can only be used for dual problem. However, hinge fails to converge for the data even for 1000 iterations and any reasonable tolerance value.
+
+  Following are the performance characteristics of LinearSVC for both loss values:
+<table align='center'>
+  <tr>
+    <td><b>Loss Function</b></td>
+    <td><b>Accuracy (in %)</b></td>
+    <td><b>Training Time (in s)</b></td>
+  </tr>
+  <tr>
+    <td><b>Hinge Loss</b></td>
+    <td>88.46</td>
+    <td>6.7092147</td>
+  </tr>
+  <tr>
+    <td><b>Squared Hinge Loss</b></td>
+    <td>99.34</td>
+    <td>2.88874742</td>
+  </tr>
+</table>
+  It is easy to observe that *squared_hinge* performs better than *hinge* loss function. The high training time for *hinge* loss is because the model failed to converge for hinge loss.
+Note that the data is for regularization parameter set to its optimal value (C=2.7).
+
++ **Setting C to high/low/medium values**
+
+  The regularization parameter, C controls the trade-off between maximizing the margin and minimizing the classification error. The value of C is set to 1 by default for LinearSVC. The
+following trend is observed in the performance of the model for varying values of C-
+<table style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
+  <tr>
+    <td style="text-align:center; border:none;">
+      <img src="photos/svc_t_vs_c.png" alt="Image 2" style="width:90%; height:auto;">
+    </td>
+    <td style="text-align:center; border:none;">
+      <img src="photos/svc_acc_vs_c.png" alt="Image 3" style="width:90%; height:auto;">
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center; border:none;">Figure 2. Training Time vs C</td>
+    <td style="text-align:center; border:none;">Figure 3. Accuracy vs C</td>
+  </tr>
+</table>
+
+  From the above graph it is readily observed that the accuracy of the model first increases with the value of C, peaks around at about C=2.7 with accuracy of 99.34% and then drops down.
+  On the other hand, there is only a small increase in training time for increasing values of C. The random peaks in the graph might be due to the randomness of the system and not indicative of the model’s reaction to change in C value.
+
