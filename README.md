@@ -21,7 +21,7 @@ This part emphasizes the need for critical evaluation of security measures in PU
 We show that there exists a linear model that can perfectly predict  the responses of a CAR-PUF and this linear model can be estimated fairly accurately if given enough challenge-response pairs (CRPs). We have data from a CAR-PUF with 32-bit challenges. The training set consists of 40000 CRPs and the test set consists of 10000 CRPs.
 
 ## Calculations
-Suppose the secret time threshold is $\tau$ and the delays from the two PUFs are $\Delta_{w}$ and $\Delta_{r}$. The CAR-PUF outputs 1 if $|\Delta_{w} - \Delta{r}| > \tau$ and 0 otherwise.
+Suppose the secret time threshold is $\tau$ and the delays from the two PUFs are $\Delta_{w}$ and $\Delta_{r}$. The CAR-PUF outputs 1 if $|\Delta_{w} - \Delta_{r}| > \tau$ and 0 otherwise.
 
 Therefore, the classifier model is given by:
 
@@ -43,13 +43,13 @@ $$
 From this, we conclude that the decision boundary should be:
 
 $$
-|\Delta_{w} - \Delta{r}|-\tau = 0
+|\Delta_{w} - \Delta_{r}|-\tau = 0
 $$
 
-or, $|\Delta_{w} - \Delta{r}|=\tau$. Squaring both sides, we get:
+or, $|\Delta_{w} - \Delta_{r}|=\tau$. Squaring both sides, we get:
 
 $$
-|\Delta_{w} - \Delta{r}|^(2)=\tau^(2)
+|\Delta_{w} - \Delta_{r}|^{2}=\tau^{2}
 $$
 
 Expanding the terms:
@@ -60,15 +60,17 @@ $$
 
 If $\textbf{X} \in \mathbb{R}^{32}$ denotes the feature vectore (challenge), we can model the time delays as follows:
 
-$$
-\Delta_{w} = \tilde{W}_{w}^{T} \mathbf{X}
-\Delta_{r} = \tilde{W}_{r}^{T} \mathbf{X}
-$$
+<p>
+  $$
+  \Delta_{w} = \tilde{W}_{w}^{T} \mathbf{X}
+  \Delta_{r} = \tilde{W}_{r}^{T} \mathbf{X}
+  $$
+</p>
 
 , where $\tilde{W}_{w}^{T} \in \mathbb{R}^{32}$.
 
 Now let us represent the Linear model $\Delta_{r}$ with the parameters $(\mathbf{u}, p)$ and $\Delta_{r}$ with parameters $(\mathbf{v}, q)$.
-We note that $\mathbf{u}, \mathbf{v} \in mathbb{R}^{32}$ and $p, q \in \mathbb{R}$.
+We note that $\mathbf{u}, \mathbf{v} \in \mathbb{R}^{32}$ and $p, q \in \mathbb{R}$.
 
 Substituting in the equation for the decision boundary, we get:  
 
