@@ -172,45 +172,188 @@ Modelling the data using **SVM-LinearSVC**, resulted in prediction accuracy of 9
   *sklearn.SVC* provides two types of losses- ”hinge” and ”squared_hinge”(default value). The hinge loss can only be used for dual problem. However, hinge fails to converge for the data even for 1000 iterations and any reasonable tolerance value.
 
   Following are the performance characteristics of LinearSVC for both loss values:
-<table align='center'>
-  <tr>
-    <td><b>Loss Function</b></td>
-    <td><b>Accuracy (in %)</b></td>
-    <td><b>Training Time (in s)</b></td>
-  </tr>
-  <tr>
-    <td><b>Hinge Loss</b></td>
-    <td>88.46</td>
-    <td>6.7092147</td>
-  </tr>
-  <tr>
-    <td><b>Squared Hinge Loss</b></td>
-    <td>99.34</td>
-    <td>2.88874742</td>
-  </tr>
-</table>
-  It is easy to observe that *squared_hinge* performs better than *hinge* loss function. The high training time for *hinge* loss is because the model failed to converge for hinge loss.
-Note that the data is for regularization parameter set to its optimal value (C=2.7).
+  <table align='center'>
+    <tr>
+      <td><b>Loss Function</b></td>
+      <td><b>Accuracy (in %)</b></td>
+      <td><b>Training Time (in s)</b></td>
+    </tr>
+    <tr>
+      <td><b>Hinge Loss</b></td>
+      <td>88.46</td>
+      <td>6.7092147</td>
+    </tr>
+    <tr>
+      <td><b>Squared Hinge Loss</b></td>
+      <td>99.34</td>
+      <td>2.88874742</td>
+    </tr>
+  </table>
+  It is easy to observe that <i>squared_hinge</i> performs better than <i>hinge</i> loss function. The high training time for <i>hinge</i> loss is because the model failed to converge for hinge loss.
+  Note that the data is for regularization parameter set to its optimal value (C=2.7).
 
 + **Setting C to high/low/medium values**
 
   The regularization parameter, C controls the trade-off between maximizing the margin and minimizing the classification error. The value of C is set to 1 by default for LinearSVC. The
 following trend is observed in the performance of the model for varying values of C-
-<table style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
-  <tr>
-    <td style="text-align:center; border:none;">
-      <img src="photos/svc_t_vs_c.png" alt="Image 2" style="width:90%; height:auto;">
-    </td>
-    <td style="text-align:center; border:none;">
-      <img src="photos/svc_acc_vs_c.png" alt="Image 3" style="width:90%; height:auto;">
-    </td>
-  </tr>
-  <tr>
-    <td style="text-align:center; border:none;">Figure 2. Training Time vs C</td>
-    <td style="text-align:center; border:none;">Figure 3. Accuracy vs C</td>
-  </tr>
-</table>
+  <table align='center' style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
+    <tr>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svc_t_vs_c.png" alt="Image 2" style="width:90%; height:auto;">
+      </td>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svc_acc_vs_c.png" alt="Image 3" style="width:90%; height:auto;">
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; border:none;">Figure 2. Training Time vs C</td>
+      <td style="text-align:center; border:none;">Figure 3. Accuracy vs C</td>
+    </tr>
+  </table>
 
   From the above graph it is readily observed that the accuracy of the model first increases with the value of C, peaks around at about C=2.7 with accuracy of 99.34% and then drops down.
   On the other hand, there is only a small increase in training time for increasing values of C. The random peaks in the graph might be due to the randomness of the system and not indicative of the model’s reaction to change in C value.
 
++ **Changing tol to high/low/medium values**
+  The tolerance value signifies the threshold at which the convergence iteration ceases, indicating the stage where we ascertain that our classifier has converged. The value of tolerance is set to 10−4 by default. The Training time and Accuracy with **negative logarithm of Tolerance values** are plotted below.
+  <table align='center' style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
+    <tr>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svc_t_vs_tol.png" alt="Image 2" style="width:90%; height:auto;">
+      </td>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svc_acc_vs_tol.png" alt="Image 3" style="width:90%; height:auto;">
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; border:none;">Figure 4. Training Time vs Tolerance</td>
+      <td style="text-align:center; border:none;">Figure 5. Accuracy vs Tolerance</td>
+    </tr>
+  </table>
+  The above plots clearly show that the optimised value with respect to accuracy of tolerance is the default value which is $10^{−4}$. Also, it is clear that the training time increases as well as we keep on reducing the tolerance value.
+
++ **Changing the penalty (l2 vs l1)**
+  *svm.LinearSVC* provides two types of penalties- l1, which is absolute loss, and l2, which is squared loss. l2 penalty is usually set as the default penalty parameter for sklearn models. The model’s convergence was unsuccessful when applying the l1 penalty, but switching to the l2 penalty facilitated successful convergence.
+  
+  <table align='center'>
+    <tr>
+      <td><b>Penalty</b></td>
+      <td><b>Accuracy (in %)</b></td>
+      <td><b>Training Time (in s)</b></td>
+    </tr>
+    <tr>
+      <td><b>l1 Penalty</b></td>
+      <td>99.16</td>
+      <td>95.64494492</td>
+    </tr>
+    <tr>
+      <td><b>l2 Penalty</b></td>
+      <td>99.34</td>
+      <td>2.72156618</td>
+    </tr>
+  </table>
+
+  Using l1 penalty drastically increases the training time of the model without any significant increase in the accuracy. l2 penalty, on the other hand, had decidedly smaller training time and greater accuracy. Therefore, l2 penalty is undeniably the better choice of the two.
+
+## 2. Results obtained from Logistic Regression
+Repeating all the above steps, but with *LogisticRegression* instead of *svm.LinearSVC* yields the following results. The accuracy obtained on the ”test” after fitting to the ”train” data was 99.28% with the default hyperparameters. This result is comparable with the one obtaied with LinearSVC classifier. This means now our model was able to classify 9928 data points correctly out of the given 10000 points.
+
+### 2.1 Accuracy Score
+Again as previous, the obtained 99.28% accuracy is on the hyperparameters set as default, which is comparable to the accuracy achieved by using svm model. However, the training time required by logistic regression is significantly less than that of svm at around 0.95 seconds.
+
+### 2.2  Hyperparameter Tuning
+The achieved 99.3% accuracy was based on the default hyperparameters. The plots below provides the details of these:-
+
++ **• Setting C to high/low/medium values**
+  At default tolerance value, we set C to various range of values. However, the highest possible accuracy was reached when C was set to 6.0. It is observed that the accuracy of the model increases with increase in value of C at first and then reaches maximum at around C=6.0 after which it remains constant.
+  <table align='center' style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
+    <tr>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svm_t_vs_c.png" alt="Image 2" style="width:90%; height:auto;">
+      </td>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svm_acc_vs_c.png" alt="Image 3" style="width:90%; height:auto;">
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; border:none;">Figure 6. Training Time vs C</td>
+      <td style="text-align:center; border:none;">Figure 7. Accuracy vs C</td>
+    </tr>
+  </table>
+
++ **Changing tol to high/low/medium values**
+  The tolerance value was set to different values and its training time and accuracy was plotted. For a better visualisation purpose, we plotted these on the negative logarithmic of tolerance scale.The highest accuracy was obtained when tol was set to $10^{-4}$.
+  <table align='center' style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
+    <tr>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svm_t_vs_tol.png" alt="Image 2" style="width:90%; height:auto;">
+      </td>
+      <td style="text-align:center; border:none;">
+        <img src="photos/svm_acc_vs_tol.png" alt="Image 3" style="width:90%; height:auto;">
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; border:none;">Figure 8. Training Time vs Tolerance</td>
+      <td style="text-align:center; border:none;">Figure 9. Accuracy vs Tolerance</td>
+    </tr>
+  </table>
+
++ **Changing the regularization hyperparameter in (l2 vs l1)**
+  When we used the l1 regularization parameter, the model did not converge. It converged only when we used the l2 regularization parameter. Also, the standard sklearn library, only allows the use of l1 penalty with "saga" solver.
+  <table align='center'>
+    <tr>
+      <td><b>Penalty</b></td>
+      <td><b>Accuracy (in %)</b></td>
+      <td><b>Training Time (in s)</b></td>
+    </tr>
+    <tr>
+      <td><b>l1 Penalty</b></td>
+      <td>99.04</td>
+      <td>20.9712754</td>
+    </tr>
+    <tr>
+      <td><b>l2 Penalty</b></td>
+      <td>99.32</td>
+      <td> 0.9552411</td>
+    </tr>
+  </table>
+
+  It is evident that l1 penalty requires significantly more time and also performs poorly in accuracy in comparison to l2 penalty. Thus, l2 penalty is decidedly better for Logistic Regression also.
+
+## 3. Comparison of the Hyperparameters from both the Classifiers
+In this section, we will compare the results, namely the accuracy and the training time from both of our classifiers.
+
++ **Modifying the C Hyperparameter**
+   <table align='center' style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
+    <tr>
+      <td style="text-align:center; border:none;">
+        <img src="photos/t_time_vs_C.png" alt="Image 2" style="width:90%; height:auto;">
+      </td>
+      <td style="text-align:center; border:none;">
+        <img src="photos/acc_vs_C.png" alt="Image 3" style="width:90%; height:auto;">
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; border:none;">Figure 10. Training Time vs C</td>
+      <td style="text-align:center; border:none;">Figure 11. Accuracy vs C</td>
+    </tr>
+  </table>
+
++ **Modifying the tolerance value** (Negative log tolerance is plotted on the x-axis)
+  <table align='center' style="width:100%; table-layout:fixed; border:0; margin-left:auto; margin-right:auto;">
+    <tr>
+      <td style="text-align:center; border:none;">
+        <img src="photos/t_time_vs_tol.png" alt="Image 2" style="width:90%; height:auto;">
+      </td>
+      <td style="text-align:center; border:none;">
+        <img src="photos/acc_vs_tol.png" alt="Image 3" style="width:90%; height:auto;">
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; border:none;">Figure 12. Training Time vs Tolerance</td>
+      <td style="text-align:center; border:none;">Figure 13. Accuracy vs Tolerance</td>
+    </tr>
+  </table>
+
+## 4. Conclusion
+After comparing both of our models, we’ve observed that their performance is comparable in terms of accuracy. However, when considering training time, we find that Logistic Regression outperforms Linear SVC in this scenario.
